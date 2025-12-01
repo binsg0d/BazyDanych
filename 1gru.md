@@ -170,3 +170,16 @@ SELECT
 FROM c2forms f
 JOIN c2users u ON f.owner_id = u.id
 JOIN form_question_counts qc ON f.id = qc.form_id;
+```
+
+```sql
+WITH RECURSIVE eh AS (
+    SELECT id, email, manager_id, 1 as level
+    FROM c2users
+    WHERE manager_id = 1
+    UNION ALL
+    SELECT u.id, u.email, u.manager_id, eh.level + 1
+    FROM c2users u
+    INNER JOIN eh ON u.manager_id = eh.id
+)
+SELECT * FROM eh;
