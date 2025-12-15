@@ -182,4 +182,4 @@ WITH RECURSIVE eh AS (
     FROM c2users u
     INNER JOIN eh ON u.manager_id = eh.id
 )
-SELECT * FROM eh;
+```
